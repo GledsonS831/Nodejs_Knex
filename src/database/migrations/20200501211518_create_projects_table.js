@@ -1,3 +1,4 @@
+const {onUpdateTrigger} = require('../../../knexfile');
 
 exports.up = function(knex) {
     return knex.schema.createTable('projects', function(table){
@@ -13,6 +14,8 @@ exports.up = function(knex) {
         .onDelete('CASCADE');
 
       table.timestamps(true, true);
+    }).then(() =>{
+        knex.raw(onUpdateTrigger('projects'));
     })
   };
   
